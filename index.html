@@ -7,71 +7,16 @@
 <title>Mes Objectifs</title>
 	
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-.container {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 400px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-h1 {
-  text-align: center;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input, select, button {
-  padding: 8px;
-  font-size: 14px;
-}
-
-button {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #45a049;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-li {
-  background: #f0f0f0;
-  padding: 10px;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-}
-
-.delete {
-  background: red;
-  color: white;
-  border: none;
-  padding: 5px 8px;
-  cursor: pointer;
-}
+body {font-family: Arial, sans-serif; background: #f4f6f8; display: flex; justify-content: center; margin-top: 50px;}
+.container {background: white; padding: 30px; border-radius: 10px; width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
+h1 {text-align: center;}
+.form {display: flex; flex-direction: column; gap: 10px;}
+input, select, button {padding: 8px; font-size: 14px;}
+button {background: #4CAF50; color: white; border: none; cursor: pointer;}
+button:hover {background: #45a049;}
+ul {list-style: none; padding: 0; margin-top: 20px;}
+li {background: #f0f0f0; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px;}
+.delete {background: red; color: white; border: none; padding: 5px 8px; cursor: pointer;}
 </style>
 
 </head>
@@ -105,8 +50,11 @@ function ajouterObjectif() {
   if (input.value.trim() === "") return;
 
   const li = document.createElement("li");
+  //const checkbox = document.createElement("input");
+  //checkbox.type = "checkbox";
   li.innerHTML = `
-    ${input.value} - <strong>${frequence}</strong>
+    ${input.value} <strong>${frequence}</strong>
+	<input type="checkbox"></input>
     <button class="delete" onclick="supprimerObjectif(this)">X</button>
   `;
 
