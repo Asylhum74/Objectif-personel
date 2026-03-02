@@ -7,40 +7,81 @@
 <title>Mes Objectifs</title>
 	
 <style>
-:root{--bg:#f5f7fb; --card:#ffffff; --primary:#4f46e5; --primary-light:#eef2ff;--success:#22c55e;
-  --warning:#f59e0b; --danger:#ef4444; --text:#1f2937; --muted:#6b7280; --radius:16px; --shadow:0 8px 24px rgba(0,0,0,0.08); }
-*{box-sizing:border-box}
-body{margin:0; font-family:Inter, system-ui, sans-serif; padding: 15px;  margin: 0; width: 100%; background:var(--bg); color:var(--text);
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
-html, body {height: 100%;}
-.header{background:var(--card); box-shadow:var(--shadow); padding:18px 28px; display:flex; align-items:center; justify-content:space-between; position:sticky;
-  top:0; z-index:10; }
-.header h1{margin:0; font-size:20px; }
-.header-actions{display:flex; gap:10px; }
-.layout {display: flex; flex-direction: column; gap: 20px; min-height: 100vh; width:100%; }
-.content{padding:28px; flex: 1; width:100%; }
-.card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:22px; }
-.card h2{margin:0 0 14px 0; font-size:18px; }
-.btn{border:none; border-radius:12px; padding:10px 14px; font-weight:600; cursor:pointer; background:var(--primary); color:white; }
-.btn.secondary{background:#e5e7eb; color:#111827; }
-ul {list-style: none; padding: 0; margin-top: 20px;}
-li {background: #f0f0f0; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px;}
-.delete {background: red; color: white; border: none; padding: 5px 8px; cursor: pointer;}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select, button {
+  padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.delete {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  cursor: pointer;
+}
 </style>
 
 </head>
 
 <body>
-<div class="layout">
-	<div class="header">
-  		<h1>Mes Objectifs</h1>
-  		<div class="header-actions">
-    		<button class="btn secondary" onclick="toggleDarkMode()">Mode sombre</button>
-  		</div>
-  </div>
-  <main class="content">
-  <div class="card" id="page-objectif">
-	<input type="text" id="objectifInput" placeholder="Nouvel objectif...">
+  <div class="container">
+    <h1>🎯 Mes Objectifs</h1>
+
+    <div class="form">
+      <input type="text" id="objectifInput" placeholder="Nouvel objectif...">
 
       <select id="frequenceInput">
         <option value="Tous les jours">Tous les jours</option>
@@ -49,12 +90,11 @@ li {background: #f0f0f0; padding: 10px; margin-bottom: 8px; display: flex; justi
         <option value="1x par mois">1x par mois</option>
       </select>
 
-      <button class ="btn" onclick="ajouterObjectif()">Ajouter</button>
-	  <ul id="listeObjectifs"></ul>
+      <button onclick="ajouterObjectif()">Ajouter</button>
+    </div>
+
+    <ul id="listeObjectifs"></ul>
   </div>
- 
-  </main>
-</div>
 
 <script>
 function ajouterObjectif() {
