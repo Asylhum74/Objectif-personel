@@ -31,11 +31,19 @@
   </div>
   <main class="content">
   <div class="card" id="page-objectif" style="display:none;">
-      <h2>Objectif</h2>
+      <h2>📋 Objectif</h2>
       <div id="listeTachesObjectif"></div>
   </div>
  
   </main>
 </div>
+
+<script>
+function afficherPage(page) {
+  document.querySelectorAll(".card").forEach(p => p.style.display = "none");
+  document.getElementById("page-" + page).style.display = "block";
+}
+	
+</script>
   
 </body>
