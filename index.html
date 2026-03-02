@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="#121212, user-scalable=no">
+<meta charset="UTF-8">
+<title>Mes Objectifs</title>
+	
+<style>
+.header{background:var(--card); box-shadow:var(--shadow); padding:18px 28px; display:flex; align-items:center; justify-content:space-between; position:sticky;
+  top:0; z-index:10; }
+.header h1{margin:0; font-size:20px; }
+.header-actions{display:flex; gap:10px; }
+.layout {display: flex; flex-direction: column; gap: 20px; min-height: 100vh; width:100%; }
+.content{padding:28px; flex: 1; width:100%; }
+.card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:22px; }
+.card h2{margin:0 0 14px 0; font-size:18px; }
+.btn{border:none; border-radius:12px; padding:10px 14px; font-weight:600; cursor:pointer; background:var(--primary); color:white; }
+.btn.secondary{background:#e5e7eb; color:#111827; }
+</style>
+
+</head>
+
+<body>
+<div class="layout">
+	<div class="header">
+  		<h1>Gestion Maison</h1>
+  		<div class="header-actions">
+    		<button class="btn secondary" onclick="toggleDarkMode()">Mode sombre</button>
+  		</div>
+  </div>
+  <main class="content">
+  <div class="card" id="page-objectif" style="display:none;">
+      <h2>Objectif</h2>
+      <div id="listeTachesObjectif"></div>
+  </div>
+ 
+  </main>
+</div>
+  
+</body>
