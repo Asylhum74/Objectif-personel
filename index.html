@@ -7,62 +7,175 @@
 <title>Mes Objectifs</title>
 	
 <style>
-body {font-family: Arial, sans-serif; background: #f4f6f8; display: flex; justify-content: center; margin-top: 50px;}
-.container {background: white; padding: 30px; border-radius: 10px; width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
-h1 {text-align: center;}
-.form {display: flex; flex-direction: column; gap: 10px;}
-input, select, button {padding: 8px; font-size: 14px;}
-button {background: #4CAF50; color: white; border: none; cursor: pointer;}
-button:hover {background: #45a049;}
-ul {list-style: none; padding: 0; margin-top: 20px;}
-li {background: #f0f0f0; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px;}
-.delete {background: red; color: white; border: none; padding: 5px 8px; cursor: pointer;}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.app {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 420px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #667eea;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #5a67d8;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: #f7f8fc;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.delete {
+  background: #ff4d4d;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
 </style>
 
 </head>
 
 <body>
-  <div class="container">
-    <h1>🎯 Mes Objectifs</h1>
+  <div class="app">
+    <h1>🎯 Objectifs Tracker</h1>
 
-    <div class="form">
+    <div class="card">
       <input type="text" id="objectifInput" placeholder="Nouvel objectif...">
 
       <select id="frequenceInput">
         <option value="Tous les jours">Tous les jours</option>
-        <option value="3x par semaine">3x par semaine</option>
-        <option value="1x par semaine">1x par semaine</option>
-        <option value="1x par mois">1x par mois</option>
+        <option value="3x/semaine">3x par semaine</option>
+        <option value="1x/semaine">1x par semaine</option>
+        <option value="1x/mois">1x par mois</option>
       </select>
 
-      <button onclick="ajouterObjectif()">Ajouter</button>
+      <button id="addBtn">Ajouter</button>
     </div>
 
     <ul id="listeObjectifs"></ul>
   </div>
 
 <script>
-function ajouterObjectif() {
-  const input = document.getElementById("objectifInput");
-  const frequence = document.getElementById("frequenceInput").value;
-  const liste = document.getElementById("listeObjectifs");
+const input = document.getElementById("objectifInput");
+const frequenceInput = document.getElementById("frequenceInput");
+const liste = document.getElementById("listeObjectifs");
+const addBtn = document.getElementById("addBtn");
 
+let objectifs = JSON.parse(localStorage.getItem("objectifs")) || [];
+
+function sauvegarder() {
+  localStorage.setItem("objectifs", JSON.stringify(objectifs));
+}
+
+function afficherObjectifs() {
+  liste.innerHTML = "";
+
+  objectifs.forEach((obj, index) => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <div class="left">
+        <input type="checkbox" ${obj.done ? "checked" : ""} onchange="toggleDone(${index})">
+        <span class="${obj.done ? "done" : ""}">
+          ${obj.nom} - <strong>${obj.frequence}</strong>
+        </span>
+      </div>
+      <button class="delete" onclick="supprimerObjectif(${index})">X</button>
+    `;
+
+    liste.appendChild(li);
+  });
+}
+
+function ajouterObjectif() {
   if (input.value.trim() === "") return;
 
-  const li = document.createElement("li");
-  li.innerHTML = `
-    ${input.value} <strong>${frequence}</strong>
-	<input type="checkbox"></input>
-    <button class="delete" onclick="supprimerObjectif(this)">X</button>
-  `;
+  objectifs.push({
+    nom: input.value,
+    frequence: frequenceInput.value,
+    done: false
+  });
 
-  liste.appendChild(li);
   input.value = "";
+  sauvegarder();
+  afficherObjectifs();
 }
 
-function supprimerObjectif(bouton) {
-  bouton.parentElement.remove();
+function supprimerObjectif(index) {
+  objectifs.splice(index, 1);
+  sauvegarder();
+  afficherObjectifs();
 }
+
+function toggleDone(index) {
+  objectifs[index].done = !objectifs[index].done;
+  sauvegarder();
+  afficherObjectifs();
+}
+
+addBtn.addEventListener("click", ajouterObjectif);
+
+afficherObjectifs();
 </script>
   
 </body>
