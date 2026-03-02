@@ -7,6 +7,12 @@
 <title>Mes Objectifs</title>
 	
 <style>
+:root{--bg:#f5f7fb; --card:#ffffff; --primary:#4f46e5; --primary-light:#eef2ff;--success:#22c55e;
+  --warning:#f59e0b; --danger:#ef4444; --text:#1f2937; --muted:#6b7280; --radius:16px; --shadow:0 8px 24px rgba(0,0,0,0.08); }
+*{box-sizing:border-box}
+body{margin:0; font-family:Inter, system-ui, sans-serif; padding: 15px;  margin: 0; width: 100%; background:var(--bg); color:var(--text);
+}
+html, body {height: 100%;}
 .header{background:var(--card); box-shadow:var(--shadow); padding:18px 28px; display:flex; align-items:center; justify-content:space-between; position:sticky;
   top:0; z-index:10; }
 .header h1{margin:0; font-size:20px; }
@@ -17,6 +23,9 @@
 .card h2{margin:0 0 14px 0; font-size:18px; }
 .btn{border:none; border-radius:12px; padding:10px 14px; font-weight:600; cursor:pointer; background:var(--primary); color:white; }
 .btn.secondary{background:#e5e7eb; color:#111827; }
+ul {list-style: none; padding: 0; margin-top: 20px;}
+li {background: #f0f0f0; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px;}
+.delete {background: red; color: white; border: none; padding: 5px 8px; cursor: pointer;}
 </style>
 
 </head>
@@ -24,26 +33,50 @@
 <body>
 <div class="layout">
 	<div class="header">
-  		<h1>Gestion Maison</h1>
+  		<h1>Mes Objectifs</h1>
   		<div class="header-actions">
     		<button class="btn secondary" onclick="toggleDarkMode()">Mode sombre</button>
   		</div>
   </div>
   <main class="content">
-  <div class="card" id="page-objectif" style="display:none;">
-      <h2>📋 Objectif</h2>
-      <div id="listeTachesObjectif"></div>
+  <div class="card" id="page-objectif">
+	<input type="text" id="objectifInput" placeholder="Nouvel objectif...">
+
+      <select id="frequenceInput">
+        <option value="Tous les jours">Tous les jours</option>
+        <option value="3x par semaine">3x par semaine</option>
+        <option value="1x par semaine">1x par semaine</option>
+        <option value="1x par mois">1x par mois</option>
+      </select>
+
+      <button class ="btn" onclick="ajouterObjectif()">Ajouter</button>
+	  <ul id="listeObjectifs"></ul>
   </div>
  
   </main>
 </div>
 
 <script>
-function afficherPage(page) {
-  document.querySelectorAll(".card").forEach(p => p.style.display = "none");
-  document.getElementById("page-" + page).style.display = "block";
+function ajouterObjectif() {
+  const input = document.getElementById("objectifInput");
+  const frequence = document.getElementById("frequenceInput").value;
+  const liste = document.getElementById("listeObjectifs");
+
+  if (input.value.trim() === "") return;
+
+  const li = document.createElement("li");
+  li.innerHTML = `
+    ${input.value} - <strong>${frequence}</strong>
+    <button class="delete" onclick="supprimerObjectif(this)">X</button>
+  `;
+
+  liste.appendChild(li);
+  input.value = "";
 }
-	
+
+function supprimerObjectif(bouton) {
+  bouton.parentElement.remove();
+}
 </script>
   
 </body>
