@@ -22,10 +22,13 @@ body {
 
 .app {
   background: white;
-  padding: 30px;
   border-radius: 20px;
-  width: 420px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  max-width: 420px;   /* limite sur grand écran */
+  margin: 20px auto;  /* centrer sur desktop */
+  padding: 30px;
+  width: 90%;         /* largeur relative pour desktop et tablettes */
+  min-height: 80vh;   /* prend presque toute la hauteur de l'écran */
 }
 
 /* -------------------------
