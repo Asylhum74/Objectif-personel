@@ -100,16 +100,16 @@ li {
     <h1>🎯 Objectifs Tracker</h1>
 
     <div class="card">
-      <input type="text" id="objectifInput" placeholder="Nouvel objectif...">
+      	<input type="text" id="objectifInput" placeholder="Nouvel objectif...">
 
-      <select id="frequenceInput">
-        <option value="Tous les jours">Tous les jours</option>
-        <option value="3x/semaine">3x par semaine</option>
-        <option value="1x/semaine">1x par semaine</option>
-        <option value="1x/mois">1x par mois</option>
-      </select>
+		<input type="number" id="intervalInput" min="1" value="1">
 
-      <button id="addBtn">Ajouter</button>
+		<select id="unitInput">
+  			<option value="days">Jour(s)</option>
+  			<option value="weeks">Semaine(s)</option>
+		</select>
+
+      	<button id="addBtn">Ajouter</button>
     </div>
 
     <ul id="listeObjectifs"></ul>
@@ -122,6 +122,11 @@ const liste = document.getElementById("listeObjectifs");
 const addBtn = document.getElementById("addBtn");
 
 let objectifs = JSON.parse(localStorage.getItem("objectifs")) || [];
+
+function joursEntre(date1, date2) {
+  const diff = date2 - date1;
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
 
 function sauvegarder() {
   localStorage.setItem("objectifs", JSON.stringify(objectifs));
@@ -148,12 +153,21 @@ function obtenirCleReset(frequence) {
 }
 
 function verifierReset() {
-  objectifs.forEach(obj => {
-    const resetActuel = obtenirCleReset(obj.frequence);
+  const maintenant = new Date();
 
-    if (obj.lastReset !== resetActuel) {
+  objectifs.forEach(obj => {
+    const lastReset = new Date(obj.lastResetDate);
+    const joursEcoules = joursEntre(lastReset, maintenant);
+
+    let intervalEnJours = obj.interval;
+
+    if (obj.unit === "weeks") {
+      intervalEnJours = obj.interval * 7;
+    }
+
+    if (joursEcoules >= intervalEnJours) {
       obj.done = false;
-      obj.lastReset = resetActuel;
+      obj.lastResetDate = maintenant.toISOString();
     }
   });
 
