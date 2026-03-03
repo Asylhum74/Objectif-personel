@@ -46,24 +46,21 @@ li {background: #f7f8fc; padding: 16px; border-radius: 14px; margin-bottom: 12px
 </head>
 
 <body>
-  <div class="app">
-    <h1>🎯 Objectifs Tracker</h1>
+ <div class="app">
+  <h1>Mes Objectifs</h1>
 
-    <div class="card">
-      	<input type="text" id="objectifInput" placeholder="Nouvel objectif...">
-
-		<input type="number" id="intervalInput" min="1" value="1">
-
-		<select id="unitInput">
-  			<option value="jour">Jour(s)</option>
-  			<option value="semaine">Semaine(s)</option>
-		</select>
-
-      	<button id="addBtn">Ajouter</button>
-    </div>
-
-    <ul id="listeObjectifs"></ul>
+  <div class="form">
+    <input type="text" id="objectifInput" placeholder="Nouvel objectif">
+    <input type="number" id="intervalInput" min="1" value="1">
+    <select id="unitInput">
+      <option value="days">Jour(s)</option>
+      <option value="weeks">Semaine(s)</option>
+    </select>
+    <button onclick="ajouterObjectif()">Ajouter</button>
   </div>
+
+  <ul id="listeObjectifs"></ul>
+</div>
 
 <script>
 // -------------------------
