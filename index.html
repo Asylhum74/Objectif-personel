@@ -11,36 +11,40 @@
    Body et app
 ------------------------- */
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .app {
-  background: #ffffff;
+  background: white;
+  padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-  max-width: 420px;
-  width: 90%;
-  min-height: 80vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 420px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);;
 }
 
 /* -------------------------
    Titres
 ------------------------- */
 h1 {
-	text-align: center;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 /* -------------------------
    Formulaire ajout objectif
 ------------------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+	
 .form {
   display: flex;
   flex-direction: column;
@@ -48,7 +52,9 @@ h1 {
 }
 
 input, select {
-  padding: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   font-size: 14px;
 }
 
@@ -57,10 +63,14 @@ input:focus, select:focus {
 }
 
 button {
-  background: #4CAF50;
-  color: white;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
+  background: #667eea;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 button:hover {
@@ -80,13 +90,13 @@ ul {
 }
 
 li {
-  background: #f0f0f0;
-  padding: 10px;
-  margin-bottom: 8px;
+  background: #f7f8fc;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 5px;
 }
 
 li .left {
@@ -95,28 +105,16 @@ li .left {
   gap: 12px;
 }
 
-li .left input[type="checkbox"] {
-  transform: scale(1.2);
-  cursor: pointer;
-}
-
-li .left span.done {
+.done {
   text-decoration: line-through;
-  color: #999;
-}
-
-li .left small {
-  display: block;
-  color: #666;
-  font-size: 12px;
+  opacity: 0.6;
 }
 
 button.delete {
-  background: red;
-  color: white;
-  border: none;
+  background: #ff4d4d;
   padding: 5px 8px;
-  cursor: pointer;
+  border-radius: 8px;
+  font-size: 12px;
 }
 
 button.delete:hover {
