@@ -66,98 +66,70 @@ li {background: #f7f8fc; padding: 16px; border-radius: 14px; margin-bottom: 12px
   </div>
 
 <script>
+// -------------------------
+// VARIABLES
+// -------------------------
 const input = document.getElementById("objectifInput");
-const frequenceInput = document.getElementById("frequenceInput");
+const intervalInput = document.getElementById("intervalInput");
+const unitInput = document.getElementById("unitInput");
 const liste = document.getElementById("listeObjectifs");
-const addBtn = document.getElementById("addBtn");
 
 let objectifs = JSON.parse(localStorage.getItem("objectifs")) || [];
 
-function joursEntre(date1, date2) {
-  const diff = date2 - date1;
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-}
-
-function joursAvantReset(obj) {
-  const maintenant = new Date();
-  const lastReset = new Date(obj.lastResetDate);
-
-  let intervalEnJours = obj.interval;
-  if (obj.unit === "semaine") {
-    intervalEnJours = obj.interval * 7;
-  }
-
-  const joursEcoules = joursEntre(lastReset, maintenant);
-  const restant = intervalEnJours - joursEcoules;
-
-  return restant > 0 ? restant : 0;
-}
-
+// -------------------------
+// UTILITAIRES
+// -------------------------
 function sauvegarder() {
   localStorage.setItem("objectifs", JSON.stringify(objectifs));
 }
 
-function verifierReset() {
+function creerNouvellePeriode(obj) {
   const maintenant = new Date();
+  obj.periodStart = maintenant.toISOString();
 
-  objectifs.forEach(obj => {
-    const lastReset = new Date(obj.lastResetDate);
+  let intervalEnJours = obj.interval;
+  if (obj.unit === "weeks") intervalEnJours *= 7;
 
-    let intervalEnJours = obj.interval;
-    if (obj.unit === "weeks") {
-      intervalEnJours = obj.interval * 7;
-    }
+  const fin = new Date(maintenant);
+  fin.setDate(fin.getDate() + intervalEnJours);
+  obj.periodEnd = fin.toISOString();
 
-    const joursEcoules = joursEntre(lastReset, maintenant);
-
-    if (joursEcoules >= intervalEnJours) {
-      obj.done = false;
-      obj.lastResetDate = maintenant.toISOString();
-    }
-  });
-
-  sauvegarder();
+  obj.done = false;
 }
 
-function afficherObjectifs() {
-  liste.innerHTML = "";
-
-  objectifs.forEach((obj, index) => {
-    const li = document.createElement("li");
-
-    const restant = joursAvantReset(obj);
-
-    li.innerHTML = `
-      <div class="left">
-        <input type="checkbox" ${obj.done ? "checked" : ""} onchange="toggleDone(${index})">
-        <span class="${obj.done ? "done" : ""}">
-          ${obj.nom}
-          <br>
-          <small>
-            Tous les ${obj.interval} ${obj.unit}
-            • Reset dans ${restant} jour(s)
-          </small>
-        </span>
-      </div>
-      <button class="delete" onclick="supprimerObjectif(${index})">X</button>
-    `;
-
-    liste.appendChild(li);
-  });
+function joursRestants(obj) {
+  const maintenant = new Date();
+  const fin = new Date(obj.periodEnd);
+  const diff = fin - maintenant;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
+
+function getAlerte(obj) {
+  const restant = joursRestants(obj);
+  if (restant <= 0) return "⚠ En retard !";
+  if (restant === 1) return "Dernier jour !";
+  if (restant <= 2) return "🟠 Presque fini !";
+  return `Il reste ${restant} jour(s)`;
+}
+
+// -------------------------
+// GESTION OBJECTIFS
+// -------------------------
 function ajouterObjectif() {
   if (input.value.trim() === "") return;
 
-  const interval = parseInt(document.getElementById("intervalInput").value);
-  const unit = document.getElementById("unitInput").value;
+  const interval = parseInt(intervalInput.value);
+  const unit = unitInput.value;
 
-  objectifs.push({
+  const obj = {
     nom: input.value,
     interval: interval,
-    unit: unit,
-    done: false,
-    lastResetDate: new Date().toISOString()
-  });
+    unit: unit
+  };
+
+  creerNouvellePeriode(obj);
+
+  objectifs.push(obj);
 
   input.value = "";
   sauvegarder();
@@ -171,16 +143,64 @@ function supprimerObjectif(index) {
 }
 
 function toggleDone(index) {
-  objectifs[index].done = !objectifs[index].done;
+  const obj = objectifs[index];
+  obj.done = !obj.done;
   sauvegarder();
   afficherObjectifs();
 }
 
-addBtn.addEventListener("click", ajouterObjectif);
+// -------------------------
+// AFFICHAGE
+// -------------------------
+function afficherObjectifs() {
+  liste.innerHTML = "";
 
-verifierReset();
-afficherObjectifs();
+  objectifs.forEach((obj, index) => {
+    const li = document.createElement("li");
 
+    li.innerHTML = `
+      <div class="left">
+        <input type="checkbox" ${obj.done ? "checked" : ""} onchange="toggleDone(${index})">
+        <span class="${obj.done ? "done" : ""}">
+          ${obj.nom} - <strong>${obj.interval} ${obj.unit}</strong>
+          <br>
+          <small>${getAlerte(obj)}</small>
+        </span>
+      </div>
+      <button class="delete" onclick="supprimerObjectif(${index})">X</button>
+    `;
+
+    liste.appendChild(li);
+  });
+}
+
+// -------------------------
+// GESTION DES PÉRIODES
+// -------------------------
+function verifierPeriodes() {
+  const maintenant = new Date();
+
+  objectifs.forEach(obj => {
+    const fin = new Date(obj.periodEnd);
+    if (maintenant > fin) {
+      creerNouvellePeriode(obj);
+    }
+  });
+
+  sauvegarder();
+  afficherObjectifs();
+}
+
+// -------------------------
+// INITIALISATION
+// -------------------------
+window.addEventListener("load", () => {
+  verifierPeriodes();
+  afficherObjectifs();
+  // Vérifie toutes les 10 minutes
+  setInterval(verifierPeriodes, 10 * 60 * 1000);
+});
+	
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js")
     .then(() => console.log("Service Worker enregistré"))
