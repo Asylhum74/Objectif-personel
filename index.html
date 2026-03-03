@@ -198,10 +198,15 @@ function afficherObjectifs() {
 function ajouterObjectif() {
   if (input.value.trim() === "") return;
 
+  const interval = parseInt(document.getElementById("intervalInput").value);
+  const unit = document.getElementById("unitInput").value;
+
   objectifs.push({
     nom: input.value,
-    frequence: frequenceInput.value,
-    done: false
+    interval: interval,
+    unit: unit,
+    done: false,
+    lastResetDate: new Date().toISOString()
   });
 
   input.value = "";
