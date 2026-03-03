@@ -127,6 +127,39 @@ function sauvegarder() {
   localStorage.setItem("objectifs", JSON.stringify(objectifs));
 }
 
+function obtenirCleReset(frequence) {
+  const now = new Date();
+
+  if (frequence === "Tous les jours") {
+    return now.toISOString().split("T")[0]; // 2026-03-02
+  }
+
+  if (frequence === "3x/semaine" || frequence === "1x/semaine") {
+    const year = now.getFullYear();
+    const week = Math.ceil(
+      ((now - new Date(year, 0, 1)) / 86400000 + new Date(year, 0, 1).getDay() + 1) / 7
+    );
+    return `${year}-W${week}`;
+  }
+
+  if (frequence === "1x/mois") {
+    return `${now.getFullYear()}-${now.getMonth()}`;
+  }
+}
+
+function verifierReset() {
+  objectifs.forEach(obj => {
+    const resetActuel = obtenirCleReset(obj.frequence);
+
+    if (obj.lastReset !== resetActuel) {
+      obj.done = false;
+      obj.lastReset = resetActuel;
+    }
+  });
+
+  sauvegarder();
+}
+
 function afficherObjectifs() {
   liste.innerHTML = "";
 
@@ -153,7 +186,8 @@ function ajouterObjectif() {
   objectifs.push({
     nom: input.value,
     frequence: frequenceInput.value,
-    done: false
+    done: false,
+    lastReset: obtenirCleReset(frequenceInput.value)
   });
 
   input.value = "";
@@ -175,6 +209,7 @@ function toggleDone(index) {
 
 addBtn.addEventListener("click", ajouterObjectif);
 
+verifierReset();
 afficherObjectifs();
 </script>
   
