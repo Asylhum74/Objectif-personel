@@ -145,8 +145,8 @@ button.delete:hover {
   	<input type="text" id="objectifInput" placeholder="Nouvel objectif">
     <input type="number" id="intervalInput" min="1" value="1">
     <select id="unitInput">
-      <option value="days">Jour(s)</option>
-      <option value="weeks">Semaine(s)</option>
+      <option value="jours">Jour(s)</option>
+      <option value="semaine">Semaine(s)</option>
     </select>
     <button onclick="ajouterObjectif()">Ajouter</button>
 
@@ -176,7 +176,7 @@ function creerNouvellePeriode(obj) {
   obj.periodStart = maintenant.toISOString();
 
   let intervalEnJours = obj.interval;
-  if (obj.unit === "weeks") intervalEnJours *= 7;
+  if (obj.unit === "semaines") intervalEnJours *= 7;
 
   const fin = new Date(maintenant);
   fin.setDate(fin.getDate() + intervalEnJours);
