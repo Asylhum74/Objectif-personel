@@ -105,8 +105,8 @@ li {
 		<input type="number" id="intervalInput" min="1" value="1">
 
 		<select id="unitInput">
-  			<option value="days">Jour(s)</option>
-  			<option value="weeks">Semaine(s)</option>
+  			<option value="jour">Jour(s)</option>
+  			<option value="semaine">Semaine(s)</option>
 		</select>
 
       	<button id="addBtn">Ajouter</button>
@@ -133,7 +133,7 @@ function joursAvantReset(obj) {
   const lastReset = new Date(obj.lastResetDate);
 
   let intervalEnJours = obj.interval;
-  if (obj.unit === "weeks") {
+  if (obj.unit === "semaine") {
     intervalEnJours = obj.interval * 7;
   }
 
