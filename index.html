@@ -84,8 +84,7 @@ ul {
   list-style: none;
   padding: 0;
   margin-top: 20px;
-  display: flex;
-  max-height: 60vh;
+  max-height: 300px;
   overflow-y: auto;
 }
 
@@ -126,20 +125,15 @@ button.delete:hover {
 ------------------------- */
 @media (max-width: 480px) {
   .app {
-    width: 100%;
-    height: 100vh;
-    border-radius: 0;
-    padding: 15px;
+    width: 100%;       /* occupe toute la largeur */
+    height: 100vh;     /* occupe toute la hauteur de l'écran */
+    border-radius: 0;  /* coin carré */
+    margin: 0;
+    padding: 20px;
   }
-
-  h1 {
-    font-size: 1.6rem;
-  }
-
-  input, select, button, li {
-    font-size: 13px;
-    padding: 8px 12px;
-  }
+  h1 { font-size: 2rem; }
+  input, select, button { font-size: 18px; padding: 16px; }
+  li { font-size: 18px; padding: 18px; 
 }
 </style>
 
