@@ -47,17 +47,14 @@ li {background: #f7f8fc; padding: 16px; border-radius: 14px; margin-bottom: 12px
 
 <body>
  <div class="app">
-  <h1>Mes Objectifs</h1>
-
-  <div class="form">
-    <input type="text" id="objectifInput" placeholder="Nouvel objectif">
+  	<h1>Mes Objectifs</h1>
+  	<input type="text" id="objectifInput" placeholder="Nouvel objectif">
     <input type="number" id="intervalInput" min="1" value="1">
     <select id="unitInput">
       <option value="days">Jour(s)</option>
       <option value="weeks">Semaine(s)</option>
     </select>
     <button onclick="ajouterObjectif()">Ajouter</button>
-  </div>
 
   <ul id="listeObjectifs"></ul>
 </div>
