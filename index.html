@@ -9,17 +9,28 @@
 <style>
 body {font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; justify-content: center; align-items: center;
   height: 100vh; margin: 0; }
-.app {background: white; padding: 30px; border-radius: 20px; width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+.app {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;   
+  max-width: 420px; 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
 h1 {text-align: center; margin-bottom: 20px; }
-.card {display: flex; flex-direction: column; gap: 10px; }
-input, select {padding: 10px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; }
-button {padding: 10px; border-radius: 10px; border: none; background: #667eea; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.card {display: flex; flex-direction: column; gap: 16px; }
+input, select {padding: 14px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; }
+button {padding: 14px; border-radius: 12px; border: none; background: #667eea; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
 button:hover {background: #5a67d8; }
 ul {list-style: none; padding: 0; margin-top: 20px; max-height: 300px; overflow-y: auto; }
-li {background: #f7f8fc; padding: 12px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+li {background: #f7f8fc; padding: 16px; border-radius: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
 .left {display: flex; align-items: center; gap: 10px; }
 .done {text-decoration: line-through; opacity: 0.6;}
 .delete {background: #ff4d4d; padding: 5px 8px; border-radius: 8px; font-size: 12px; }
+@media (max-width: 360px) {
+  .app {padding: 20px;}
+  input, select, button, li {font-size: 14px; padding: 12px; }
+}
 </style>
 
 </head>
