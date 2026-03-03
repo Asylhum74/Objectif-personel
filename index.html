@@ -8,7 +8,7 @@
 	
 <style>
 /* -------------------------
-   Body et app container
+   Body et app
 ------------------------- */
 body {
   margin: 0;
@@ -23,15 +23,15 @@ body {
 
 .app {
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  width: 100%;
-  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  max-width: 420px;
+  width: 90%;
+  min-height: 80vh;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-height: 80vh;
 }
 
 /* -------------------------
@@ -40,8 +40,8 @@ body {
 h1 {
   text-align: center;
   font-size: 1.8rem;
-  color: #333;
   margin: 0;
+  color: #333;
 }
 
 /* -------------------------
@@ -51,30 +51,27 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
 }
 
-.form input,
-.form select {
-  flex: 1 1 auto;
-  padding: 8px 10px;
+input, select {
+  flex: 1 1 100px;
+  padding: 10px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid #ccc;
   outline: none;
   transition: border 0.2s;
 }
 
-.form input:focus,
-.form select:focus {
+input:focus, select:focus {
   border-color: #667eea;
 }
 
-.form button {
-  padding: 8px 14px;
+button {
+  padding: 10px 16px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: none;
   background: #667eea;
   color: #fff;
@@ -82,7 +79,7 @@ h1 {
   transition: background 0.2s;
 }
 
-.form button:hover {
+button:hover {
   background: #556cd6;
 }
 
@@ -95,30 +92,27 @@ ul {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-height: 55vh;
+  gap: 12px;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
 li {
   background: #f7f8fc;
-  border-radius: 12px;
-  padding: 12px 14px;
+  border-radius: 14px;
+  padding: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   font-size: 14px;
   transition: background 0.2s;
-}
-
-li:hover {
-  background: #e6e8f0;
 }
 
 li .left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 li .left input[type="checkbox"] {
@@ -137,14 +131,12 @@ li .left small {
   font-size: 12px;
 }
 
-/* Bouton supprimer */
 button.delete {
   background: #ff5c5c;
   padding: 6px 10px;
   font-size: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  cursor: pointer;
 }
 
 button.delete:hover {
@@ -180,7 +172,7 @@ ul::-webkit-scrollbar-thumb {
 
   input, select, button, li {
     font-size: 13px;
-    padding: 8px 10px;
+    padding: 8px 12px;
   }
 }
 </style>
