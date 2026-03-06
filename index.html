@@ -306,13 +306,12 @@ function verifierPeriodes() {
 // INITIALISATION
 // -------------------------
 window.addEventListener("load", () => {
-  	verifierPeriodes();
-  	afficherObjectifs();
-  	// Vérifie toutes les 10 minutes
-	setInterval(() => {
-	 	verifierPeriodes();
-  		afficherObjectifs();
-	}, 10 * 60 * 1000);
+  verifierPeriodes();
+  afficherObjectifs();
+  // Vérifie les périodes toutes les 10 minutes
+  setInterval(verifierPeriodes, 10 * 60 * 1000);
+  // Met à jour l'affichage du temps restant toutes les minutes
+  setInterval(afficherObjectifs, 60 * 1000);
 });
 	
 if ("serviceWorker" in navigator) {
