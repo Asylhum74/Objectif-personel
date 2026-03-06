@@ -199,7 +199,7 @@ function getAlerte(obj) {
   const restant = joursRestants(obj);
   if (restant <= 0) return "⚠ En retard !";
   if (restant === 1) return "Dernier jour !";
-  if (restant <= 2) return "🟠 Presque fini !";
+  if (restant <= 2) return "Presque fini !";
   return `Il reste ${restant} jour(s)`;
 }
 
@@ -306,10 +306,13 @@ function verifierPeriodes() {
 // INITIALISATION
 // -------------------------
 window.addEventListener("load", () => {
-  verifierPeriodes();
-  afficherObjectifs();
-  // Vérifie toutes les 10 minutes
-  setInterval(verifierPeriodes, 10 * 60 * 1000);
+  	verifierPeriodes();
+  	afficherObjectifs();
+  	// Vérifie toutes les 10 minutes
+	setInterval(() => {
+	 	verifierPeriodes();
+  		afficherObjectifs();
+	}, 10 * 60 * 1000);
 });
 	
 if ("serviceWorker" in navigator) {
