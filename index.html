@@ -199,7 +199,6 @@ function getAlerte(obj) {
   const restant = joursRestants(obj);
   if (restant <= 0) return "⚠ En retard !";
   if (restant === 1) return "Dernier jour !";
-  if (restant <= 2) return "Presque fini !";
   return `Il reste ${restant} jour(s)`;
 }
 
