@@ -197,6 +197,7 @@ function joursRestants(obj) {
 
 function getAlerte(obj) {
   const restant = joursRestants(obj);
+  if (restant <= 0) return "⚠ En retard !";
   return `Il reste ${restant} jour(s)`;
 }
 
