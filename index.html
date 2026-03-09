@@ -197,8 +197,6 @@ function joursRestants(obj) {
 
 function getAlerte(obj) {
   const restant = joursRestants(obj);
-  if (restant <= 0) return "⚠ En retard !";
-  if (restant === 1) return "Dernier jour !";
   return `Il reste ${restant} jour(s)`;
 }
 
@@ -236,9 +234,7 @@ function toggleDone(index) {
   const obj = objectifs[index];
   if (!obj.done) {
     obj.done = true;
-    const demain = new Date();
-    demain.setDate(demain.getDate() + 1);
-    obj.nextResetDate = demain.toISOString();
+	obj.nextResetDate = getProchainMinuit();
   } else {
     // décocher
     obj.done = false;
@@ -246,6 +242,20 @@ function toggleDone(index) {
   }
   sauvegarder();
   afficherObjectifs();
+}
+function getProchainMinuit() {
+  const maintenant = new Date();
+
+  // On crée une nouvelle date
+  const minuit = new Date(maintenant);
+
+  // On passe au jour suivant
+  minuit.setDate(minuit.getDate() + 1);
+
+  // On met l'heure à 00:00:00
+  minuit.setHours(0, 0, 0, 0);
+
+  return minuit.toISOString();
 }
 
 // -------------------------
