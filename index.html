@@ -272,9 +272,7 @@ function afficherObjectifs() {
       <div class="left">
         <input type="checkbox" ${obj.done ? "checked" : ""} onchange="toggleDone(${index})">
         <span class="${obj.done ? "done" : ""}">
-          ${obj.nom} -
-          <br>
-          <small>${getAlerte(obj)}</small>
+          ${obj.nom} - <small>${getAlerte(obj)}</small>
         </span>
       </div>
       <button class="delete" onclick="supprimerObjectif(${index})">X</button>
